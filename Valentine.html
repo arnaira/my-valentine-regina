@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+        body {
+            background-color: #f8e8e8;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+        .container {
+            position: relative;
+            padding-top: 50px;
+            z-index: 10;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #d6336c;
+            margin-bottom: 20px;
+        }
+        .photos {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .photos img {
+            width: 200px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: scale(0.5);
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+        .photos img:nth-child(1) { animation-delay: 0.5s; }
+        .photos img:nth-child(2) { animation-delay: 1s; }
+        .photos img:nth-child(3) { animation-delay: 1.5s; }
+        .photos img:nth-child(4) { animation-delay: 2s; }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .buttons {
+            margin-top: 20px;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .yes {
+            background-color: #ff4d6d;
+            color: white;
+        }
+        .no {
+            background-color: #ccc;
+            color: black;
+        }
+        .yes:hover {
+            background-color: #d6336c;
+        }
+        .no:hover {
+            background-color: #bbb;
+        }
+        .falling-heart {
+            position: absolute;
+            font-size: 2.5rem;
+            top: -50px;
+            animation: fall linear infinite;
+            opacity: 0.8;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100px); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .hidden {
+            display: none; /* Oculta completamente el botón */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¿Quieres ser mi San Valentín? 💖</h1>
+        <div class="photos">
+            <img src="foto1.jpg" alt="Foto 1">
+            <img src="foto2.jpg" alt="Foto 2">
+            <img src="foto3.jpg" alt="Foto 3">
+            <img src="foto4.jpg" alt="Foto 4">
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="yes" onclick="sayYes()">¡Sí! 💘</button>
+        <button class="no" onclick="shrinkNo()">No 🙊</button>
+    </div>
+
+    <audio id="background-music" autoplay loop>
+        <source src="tucancion2.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
+
+    <script>
+        function createFallingHearts() {
+            let heart = document.createElement("div");
+            heart.classList.add("falling-heart");
+            heart.textContent = "❤️";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s"; // Duración aleatoria
+            document.body.appendChild(heart);
+
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+                createFallingHearts(); // Crear otro corazón al terminar
+            });
+        }
+
+        function sayYes() {
+            for (let i = 0; i < 50; i++) {
+                let emoji = document.createElement("div");
+                emoji.classList.add("falling-heart");
+                emoji.textContent = "🎉";
+                emoji.style.left = Math.random() * window.innerWidth + "px";
+                emoji.style.animationDuration = Math.random() * 3 + 2 + "s";
+                document.body.appendChild(emoji);
+
+                emoji.addEventListener('animationend', () => {
+                    emoji.remove();
+                });
+            }
+            setTimeout(() => {
+                alert("¡ESOOO! ❤️ Más le vale decir que sí, porque sos mía 😘, mi novia 👩‍❤️‍👩, mi amor 💖, mi amorcito 💕, mi niña preciosa 😍 y ahora también mi San Valentín 😍✨. ¡Me haces muy feliz! ❤️✨.");
+            }, 1600);
+        }
+
+        function shrinkNo() {
+            let noButton = document.querySelector('.no');
+            let yesButton = document.querySelector('.yes');
+            let currentSize = parseFloat(window.getComputedStyle(noButton).fontSize);
+            let yesSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+
+            let mensajes = [
+               "¿Segura preciosa? 🥺",
+                "Pensalo bien...no te conviene amor 😢",
+                "¡No me parece tu decision REGINA! 😭",
+                "¡TENES QUE DECIR QUE SI AMOR! 😭💔",
+                "Pucha mi corazoncito está sufriendo REGINA CARBAJAL... 💔",
+                "¡MIRIAM REGINA CARBAJAL CASTELLANOS! DIGA QUE SI OMBE",
+                "¡Entende que ya no tenes escapatoria! 😆",
+                "Dale que sí mejor amorcito 😉",
+                "Vela, cree que tiene otra opcion ademas de SI",
+                "Solo hay una respuesta correcta 🫣💖"
+            ];
+
+            if (currentSize > 5) {
+                alert(mensajes[Math.floor(Math.random() * mensajes.length)]);
+                noButton.style.fontSize = (currentSize - 3) + "px";
+                yesButton.style.fontSize = (yesSize + 3) + "px";
+            } else {
+                alert("¡JA! y ahora no vas a tener opcion baby porque yo soy suya y usted es mia 💖✨");
+                noButton.classList.add("hidden"); // Hace desaparecer el botón
+            }
+        }
+
+        for (let i = 0; i < 20; i++) {
+            createFallingHearts();
+        }
+
+        const music = document.getElementById("background-music");
+        document.addEventListener("click", () => {
+            music.play();
+        });
+    </script>
+</body>
+</html>
